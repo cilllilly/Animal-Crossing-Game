@@ -1,0 +1,2 @@
+-Click to make item follow mouse
+-right click for extra options on items
