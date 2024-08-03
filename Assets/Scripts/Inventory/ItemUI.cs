@@ -18,14 +18,8 @@ public class ItemUI : MonoBehaviour
     }
     public void OnClicked()
     {
-        if (sellContainer.activeInHierarchy)
-        {
-            Debug.Log("Selling");
-        }
-        else
-        {
-            InventoryUI.instance.ItemUIClicked(this.transform as RectTransform);
-        }
+        InventoryUI.instance.ItemUIClicked(this.transform as RectTransform);
+       
     }
 
     public void UpdateImage(Sprite newImageSprite)

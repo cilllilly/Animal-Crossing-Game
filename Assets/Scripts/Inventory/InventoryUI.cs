@@ -32,6 +32,8 @@ public class InventoryUI : MonoBehaviour
     public bool canDropItem = false;
     public Transform playerTransform;
 
+    public GameObject sellContainer;
+
     //When item is already clicked and click a new item group or swap
 
     private void Awake()
@@ -99,9 +101,12 @@ public class InventoryUI : MonoBehaviour
 
     public void ItemUIClicked(RectTransform itemsRT) 
     {
+
         if (selling)
         {
+            cellUI.AddItemToSell(itemsRT);
 
+            
         }
         else { 
             if(lastClicked == clickType.left)
