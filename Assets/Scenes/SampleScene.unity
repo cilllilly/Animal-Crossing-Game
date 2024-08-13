@@ -1063,6 +1063,7 @@ MonoBehaviour:
   sellContainer: {fileID: 1032677480}
   inventoryContainer: {fileID: 706363121}
   buyContainer: {fileID: 909610228}
+  finalSell: {fileID: 0}
 --- !u!1001 &156449043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1505,12 +1506,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 152568533}
-        m_MethodName: 
+      - m_Target: {fileID: 152568536}
+        m_MethodName: FinalSell
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

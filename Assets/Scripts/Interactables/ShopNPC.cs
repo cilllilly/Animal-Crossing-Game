@@ -10,6 +10,7 @@ public class ShopNPC : MonoBehaviour, IInteractable
     public GameObject sellContainer;
     public GameObject inventoryContainer;
     public GameObject buyContainer;
+    public GameObject finalSell;
 
     // Start is called before the first frame update
     void Start()
@@ -74,5 +75,22 @@ public class ShopNPC : MonoBehaviour, IInteractable
         {
             enterTrigger = false;
         }
+    }
+    public void FinalSell()
+    {
+        bool empty = true;
+        for(int i = 0; i < sellContainer.GetComponent<CellUI>().slots.Length; i++)
+        {
+            if(sellContainer.GetComponent<CellUI>().slots[i].childCount > 0)
+            {
+                empty = false;
+                sellContainer.gameObject.SetActive(false);
+                inventoryContainer.gameObject.SetActive(false);
+                welcomeContainer.gameObject.SetActive(true);
+                inventoryContainer.GetComponent<InventoryUI>().inventoryData.gold += sellContainer.GetComponent<CellUI>().goldOnSell;
+                Destroy(sellContainer.GetComponent<CellUI>().slots[i].GetChild(0));
+            }
+        }
+        empty = true;
     }
 }
