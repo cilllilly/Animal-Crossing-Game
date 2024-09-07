@@ -11,6 +11,10 @@ public class ShopNPC : MonoBehaviour, IInteractable
     public GameObject inventoryContainer;
     public GameObject buyContainer;
     public GameObject finalSell;
+    public ItemData furnitureItemData;
+    public ItemData appleItemData;
+    public ItemData orangeItemData;
+    public InventoryData playerInventoryData;
 
     // Start is called before the first frame update
     void Start()
@@ -78,6 +82,7 @@ public class ShopNPC : MonoBehaviour, IInteractable
     }
     public void FinalSell()
     {
+        //this function sells item that we place into the sell container
         bool empty = true;
         for(int i = 0; i < sellContainer.GetComponent<CellUI>().slots.Length; i++)
         {
@@ -88,9 +93,48 @@ public class ShopNPC : MonoBehaviour, IInteractable
                 inventoryContainer.gameObject.SetActive(false);
                 welcomeContainer.gameObject.SetActive(true);
                 inventoryContainer.GetComponent<InventoryUI>().inventoryData.gold += sellContainer.GetComponent<CellUI>().goldOnSell;
-                Destroy(sellContainer.GetComponent<CellUI>().slots[i].GetChild(0));
+                GameObject child = sellContainer.GetComponent<CellUI>().slots[i].GetChild(0).gameObject;
+                Destroy(child);
+                
+                
             }
         }
         empty = true;
+    }
+
+    public void buyItem(string item)
+    {
+        if (item == "Furniture" && playerInventoryData.gold >= 50)
+        {
+            placeItem(furnitureItemData);
+            playerInventoryData.gold -= 50;
+        }
+        else if (item == "Apple" && playerInventoryData.gold >= 10) 
+        {
+            placeItem(appleItemData);
+            playerInventoryData.gold -= 10;
+        }
+        else if (playerInventoryData.gold >= 5 && item == "Orange")
+        {
+            placeItem(orangeItemData);
+            playerInventoryData.gold -= 5;
+        }
+        else
+        {
+            Debug.Log("Not enough money");
+        }
+    }
+
+    public void placeItem(ItemData item)
+    {
+        bool placeInInventory = playerInventoryData.AddItem(item);
+        if (placeInInventory)
+        {
+            Debug.Log("Bought item");
+        }
+        else
+        {
+            Debug.Log("Invenotry is full");
+        }
     }
 }

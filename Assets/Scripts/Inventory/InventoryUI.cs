@@ -111,6 +111,7 @@ public class InventoryUI : MonoBehaviour
         else { 
             if(lastClicked == clickType.left)
             {
+                Debug.Log(clickedItem);
                 //not holding item
                 if (clickedItem == null)
                 {
@@ -118,6 +119,7 @@ public class InventoryUI : MonoBehaviour
                 }
                 else if (clickedItem != null)
                 {
+                    Debug.Log("message");
                     StackableItemUI firstClicked = clickedItem.GetComponent<StackableItemUI>();
                     StackableItemUI secondClicked = itemsRT.GetComponent<StackableItemUI>();
                     if (firstClicked != null && secondClicked != null && firstClicked.itemName == secondClicked.itemName)
@@ -180,6 +182,7 @@ public class InventoryUI : MonoBehaviour
         previousSlot = itemsRT.parent as RectTransform;
         clickedItem.SetParent(slotContainer);
         clickedItem.GetComponent<Image>().raycastTarget = false;
+        FollowCursor();
     }
     public void StackItems(StackableItemUI firstClicked, StackableItemUI secondClicked)
     {
@@ -209,11 +212,15 @@ public class InventoryUI : MonoBehaviour
     {
         if (clickedItem != null)
         {
+            Debug.Log("Following cursor");
             Vector2 newPosition;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out newPosition);
-            newPosition = newPosition + new Vector2(185, -135);
-            clickedItem.anchoredPosition = newPosition;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out newPosition);
+            //RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out newPosition);
+            //newPosition = newPosition + new Vector2(185, -135);
+            //clickedItem.anchoredPosition = newPosition;
+            clickedItem.localPosition = newPosition;
         }
+        
     }
 
     void DropItem()
