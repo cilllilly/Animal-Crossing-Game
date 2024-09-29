@@ -54,6 +54,8 @@ public class CellUI : MonoBehaviour
                 RectTransform slotToPlace = slots[i].GetComponent<RectTransform>();
                 itemUIRect.SetParent(slotToPlace);
                 itemUIRect.anchoredPosition = new Vector2(slotToPlace.rect.width / 2, -slotToPlace.rect.height / 2);
+                GameObject child = itemUIRect.GetChild(0).gameObject;
+                Destroy(child);
                 CalculateTotal();
             }
         }

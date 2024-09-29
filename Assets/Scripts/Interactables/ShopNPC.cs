@@ -84,6 +84,7 @@ public class ShopNPC : MonoBehaviour, IInteractable
     {
         //this function sells item that we place into the sell container
         bool empty = true;
+        string itemName = "";
         for(int i = 0; i < sellContainer.GetComponent<CellUI>().slots.Length; i++)
         {
             if(sellContainer.GetComponent<CellUI>().slots[i].childCount > 0)
@@ -93,8 +94,38 @@ public class ShopNPC : MonoBehaviour, IInteractable
                 inventoryContainer.gameObject.SetActive(false);
                 welcomeContainer.gameObject.SetActive(true);
                 inventoryContainer.GetComponent<InventoryUI>().inventoryData.gold += sellContainer.GetComponent<CellUI>().goldOnSell;
-                GameObject child = sellContainer.GetComponent<CellUI>().slots[i].GetChild(0).gameObject;
-                Destroy(child);
+                
+                
+                
+                
+                //itemName = sellContainer.GetComponent<CellUI>().slots[i].GetChild(0).gameObject.GetComponent<ItemUI>().itemData.name;
+
+                for (int j = 0; j < playerInventoryData.inventory.Length; j++)
+                {
+                    GameObject child = sellContainer.GetComponent<CellUI>().slots[i].GetChild(0).gameObject;
+                    if (child.name == "Furniture Item UI(Clone)")
+                    {
+                        itemName = sellContainer.GetComponent<CellUI>().slots[i].GetChild(0).gameObject.GetComponent<ItemUI>().itemData.name;
+                    }
+                    else if (child.name == "Stackable Item UI(Clone)")
+                    {
+                        itemName = sellContainer.GetComponent<CellUI>().slots[i].GetChild(0).gameObject.GetComponent<StackableItemUI>().itemData.name;
+                    }
+                    if (playerInventoryData.inventory[j].name == itemName)
+                    {
+                        playerInventoryData.inventory[j] = null;
+                        Destroy(child);
+                    }
+                    else 
+                    {
+                        Debug.Log("NAMES DO NOT MATCH");
+                        Debug.Log(playerInventoryData.inventory[j].name);
+                        Debug.Log(itemName);
+                        Debug.Log(child.name);
+                    }
+                }
+                
+                
                 
                 
             }

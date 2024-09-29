@@ -105,6 +105,7 @@ public class InventoryUI : MonoBehaviour
         if (selling)
         {
             cellUI.AddItemToSell(itemsRT);
+            Debug.Log(itemsRT);
 
             
         }
@@ -116,14 +117,15 @@ public class InventoryUI : MonoBehaviour
                 if (clickedItem == null)
                 {
                     PickUp(itemsRT);
+                    Debug.Log("pick up");
                 }
                 else if (clickedItem != null)
                 {
-                    Debug.Log("message");
                     StackableItemUI firstClicked = clickedItem.GetComponent<StackableItemUI>();
                     StackableItemUI secondClicked = itemsRT.GetComponent<StackableItemUI>();
                     if (firstClicked != null && secondClicked != null && firstClicked.itemName == secondClicked.itemName)
                     {
+                        Debug.Log("stack item");
                         StackItems(firstClicked, secondClicked);
                     }
                     else
@@ -213,12 +215,14 @@ public class InventoryUI : MonoBehaviour
         if (clickedItem != null)
         {
             Debug.Log("Following cursor");
+            Debug.Log(clickedItem);
             Vector2 newPosition;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out newPosition);
             //RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out newPosition);
             //newPosition = newPosition + new Vector2(185, -135);
             //clickedItem.anchoredPosition = newPosition;
-            clickedItem.localPosition = newPosition;
+            clickedItem.anchoredPosition = newPosition;
+            
         }
         
     }
